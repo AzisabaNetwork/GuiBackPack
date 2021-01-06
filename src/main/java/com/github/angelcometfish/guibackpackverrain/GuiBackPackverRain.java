@@ -40,9 +40,33 @@ public final class GuiBackPackverRain extends JavaPlugin {
 
 
     public void rgui(Player p){
-        Inventory inv = getServer().createInventory(null, 9, "§2GuiBack");
+        Inventory inv = getServer().createInventory(null, 18, "§2GuiBack");
         ItemStack stone = new ItemStack(Material.STONE);
+        ItemStack cobblestone = new ItemStack(Material.COBBLESTONE);
+        ItemStack coal = new ItemStack(Material.COAL);
+        ItemStack redstone = new ItemStack(Material.REDSTONE);
+        ItemStack endstone = new ItemStack(Material.END_STONE);
+        ItemStack nether = new ItemStack(Material.NETHERRACK);
+        ItemStack none = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemStack close = new ItemStack(Material.BARRIER);
+        ItemStack list1 = new ItemStack(Material.PAPER);
+        ItemStack list2 = new ItemStack(Material.PAPER);
+        ItemStack wheat = new ItemStack(Material.WHEAT);
+        ItemStack seed = new ItemStack(Material.WHEAT_SEEDS);
+        ItemStack carrot = new ItemStack(Material.CARROT);
+        ItemStack potato = new ItemStack(Material.POTATO);
+
+        ItemMeta list1meta1= close.getItemMeta();
+        list1meta1.setDisplayName("§e§l採掘");
+        list1.setItemMeta(list1meta1);
+
+        ItemMeta listmeta2= close.getItemMeta();
+        listmeta2.setDisplayName("§e§l農業");
+        list2.setItemMeta(listmeta2);
+
+        ItemMeta nonemeta= close.getItemMeta();
+        nonemeta.setDisplayName("§7空欄");
+        none.setItemMeta(nonemeta);
 
         ItemMeta meta = close.getItemMeta();
         meta.setDisplayName("§4§l閉じる");
@@ -52,15 +76,25 @@ public final class GuiBackPackverRain extends JavaPlugin {
         meta.setLore(lores);
         close.setItemMeta(meta);
 
-        inv.setItem(0, stone);
+        inv.setItem(0, list1);
         inv.setItem(1, stone);
-        inv.setItem(2, stone);
-        inv.setItem(3, stone);
-        inv.setItem(4, stone);
-        inv.setItem(5, stone);
-        inv.setItem(6, stone);
-        inv.setItem(7, stone);
-        inv.setItem(8, close);
+        inv.setItem(2, cobblestone);
+        inv.setItem(3, coal);
+        inv.setItem(4, redstone);
+        inv.setItem(5, endstone);
+        inv.setItem(6, nether);
+        inv.setItem(7, none);
+        inv.setItem(8, none);
+        inv.setItem(9, list2);
+        inv.setItem(10, wheat);
+        inv.setItem(11, seed);
+        inv.setItem(12, carrot);
+        inv.setItem(13, potato);
+        inv.setItem(14, none);
+        inv.setItem(15, none);
+        inv.setItem(16, none);
+        inv.setItem(17, close);
+
         p.openInventory(inv);
     }
 }
