@@ -1,0 +1,11 @@
+name: GuiBackPackverRain
+version: ${project.version}
+main: com.github.angelcometfish.guibackpackverrain.GuiBackPackverRain
+api-version: 1.15
+authors: [ rain0417 ]
+description: GuiBackpack
+
+commands:
+  rgui:
+    description: open gui command
+    usage: /<command>
