@@ -24,7 +24,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player p = (Player) sender;
-        p.sendMessage("§2CraftGuiを開きます");
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きます"));
         rgui(p);
         return false;
     }
@@ -63,21 +63,21 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
         ItemMeta list1meta1= close.getItemMeta();
         assert list1meta1 != null;
-        list1meta1.setDisplayName("§e§l採掘");
+        list1meta1.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l採掘"));
         list1.setItemMeta(list1meta1);
 
         ItemMeta listmeta2= close.getItemMeta();
-        listmeta2.setDisplayName("§e§l農業");
+        listmeta2.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l農業"));
         list2.setItemMeta(listmeta2);
 
         ItemMeta nonemeta= close.getItemMeta();
-        nonemeta.setDisplayName("§7空欄");
+        nonemeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7空欄"));
         none.setItemMeta(nonemeta);
 
         ItemMeta meta = close.getItemMeta();
-        meta.setDisplayName("§4§l閉じる");
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&4&l閉じる"));
         List<String> lores = new ArrayList<>();
-        lores.add("§7クリックで閉じる");
+        lores.add(ChatColor.translateAlternateColorCodes('&', "&7クリックで閉じる"));
 
         meta.setLore(lores);
         close.setItemMeta(meta);
@@ -106,9 +106,9 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         if (slot == null) return;
         if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', "&2CraftGui"))){
             if (slot.getType() == Material.STONE) {
-                player.sendMessage("§2石です");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2石です"));
             }else{
-                player.sendMessage("§2虚無です");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2虚無です"));
             }
         }
     }

@@ -8,4 +8,4 @@ description: GuiBackpack
 commands:
   rgui:
     description: open gui command
-    usage: /<command>
+    usage:
