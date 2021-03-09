@@ -19,6 +19,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.bukkit.Material.STONE;
+
 public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
     @Override
@@ -33,6 +35,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         System.out.println("Guiプラグインが読み込まれました");
+        Bukkit.getPluginManager().registerEvents(this,this);
         // Plugin startup logic
 
     }
@@ -46,7 +49,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
     public void rgui(Player p){
         Inventory inv = Bukkit.createInventory(null, 18, "§2CraftGui");
-        ItemStack stone = new ItemStack(Material.STONE);
+        ItemStack stone = new ItemStack(STONE);
         ItemStack cobblestone = new ItemStack(Material.COBBLESTONE);
         ItemStack coal = new ItemStack(Material.COAL);
         ItemStack redstone = new ItemStack(Material.REDSTONE);
@@ -105,11 +108,57 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemStack slot = e.getCurrentItem();
         if (slot == null) return;
         if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', "&2CraftGui"))){
-            if (slot.getType() == Material.STONE) {
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2石です"));
+            if (slot.getType() == STONE) {
+                e.setCancelled(true);
+                Inventory stoneinv= player.getInventory();
+                if(stoneinv.contains(new ItemStack(Material.STONE, 64))) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    for (int i = 0, size = stoneinv.getSize(); i < size; ++i) {
+                        int stonecount = stoneinv.first(new ItemStack(Material.STONE, 64));
+                        stoneinv.clear(stonecount);
+                        stoneinv.addItem(new ItemStack(Material.BARRIER, 1));
+                    }
+
+                }else{
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6石を持ってないため変換できません"));
+                }
+
+            }else if(slot.getType() == Material.COBBLESTONE){
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2丸石です"));
+            }else if(slot.getType() == Material.COAL){
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2石炭です"));
+            }else if(slot.getType() == Material.REDSTONE) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2赤石です"));
+            }else if(slot.getType() == Material.END_STONE) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2エンドストーンです"));
+            }else if(slot.getType() == Material.NETHERRACK) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2ネザーラックです"));
+            }else if(slot.getType() == Material.WHEAT) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2小麦です"));
+            }else if(slot.getType() == Material.WHEAT_SEEDS) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2種です"));
+            }else if(slot.getType() == Material.POTATO) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2ジャガイモです"));
+            }else if(slot.getType() == Material.CARROT) {
+                e.setCancelled(true);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2人参です"));
+            }else if(slot.getType() == Material.BARRIER) {
+                e.setCancelled(true);
+                player.closeInventory();
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6GUIを閉じます"));
             }else{
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2虚無です"));
+                e.setCancelled(true);
             }
-        }
     }
 }
+}
+
+
