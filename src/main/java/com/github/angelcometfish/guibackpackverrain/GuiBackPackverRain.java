@@ -1,7 +1,6 @@
 package com.github.angelcometfish.guibackpackverrain;
 
 
-
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,17 +26,18 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         if (!sender.hasPermission("open.op")) {
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6権限が足りません。"));
             return true;
-        }else{
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きます"));
-        rgui(p);
-        return false;
-    }}
+        } else {
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きます"));
+            rgui(p);
+            return false;
+        }
+    }
 
 
     @Override
     public void onEnable() {
         System.out.println("Guiプラグインが読み込まれました");
-        Bukkit.getPluginManager().registerEvents(this,this);
+        Bukkit.getPluginManager().registerEvents(this, this);
         // Plugin startup logic
 
     }
@@ -49,7 +49,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     }
 
 
-    public void rgui(Player p){
+    public void rgui(Player p) {
         Inventory inv = Bukkit.createInventory(null, 18, "§2CraftGui");
         ItemStack stone = new ItemStack(STONE);
         ItemStack cobblestone = new ItemStack(Material.COBBLESTONE);
@@ -66,16 +66,16 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemStack carrot = new ItemStack(Material.CARROT);
         ItemStack potato = new ItemStack(Material.POTATO);
 
-        ItemMeta list1meta1= close.getItemMeta();
+        ItemMeta list1meta1 = close.getItemMeta();
         assert list1meta1 != null;
         list1meta1.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l採掘"));
         list1.setItemMeta(list1meta1);
 
-        ItemMeta listmeta2= close.getItemMeta();
+        ItemMeta listmeta2 = close.getItemMeta();
         listmeta2.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l農業"));
         list2.setItemMeta(listmeta2);
 
-        ItemMeta nonemeta= close.getItemMeta();
+        ItemMeta nonemeta = close.getItemMeta();
         nonemeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7空欄"));
         none.setItemMeta(nonemeta);
 
@@ -105,213 +105,186 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onClick(InventoryClickEvent e){
+    public void onClick(InventoryClickEvent e) {
         Player player = (Player) e.getView().getPlayer();
         ItemStack slot = e.getCurrentItem();
         if (slot == null) return;
-        if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', "&2CraftGui"))){
+        if (e.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', "&2CraftGui"))) {
+            //   cancel event
+            e.setCancelled(true);
+            //  player inventory
+            Inventory inv = player.getInventory();
+            //  player location
+            Location loc = player.getLocation();
+
             if (slot.getType() == STONE) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.STONE, 64))) {
-                    Location loc = player.getLocation();
+                if (inv.contains(new ItemStack(Material.STONE, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
-                        int count = inv.first(new ItemStack(Material.STONE, 64));
-                        while(count>-1){
+                    int count = inv.first(new ItemStack(Material.STONE, 64));
+                    while (count > -1) {
                         inv.clear(count);
-                            getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukustone 1");
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukustone 1");
                         count = inv.first(new ItemStack(Material.STONE, 64));
                     }
 
-                }else{
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6石を持っていません"));
                 }
 
-            }else if(slot.getType() == Material.COBBLESTONE){
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.COBBLESTONE, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.COBBLESTONE) {
+                if (inv.contains(new ItemStack(Material.COBBLESTONE, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.COBBLESTONE, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " isi_ticket 1");
                         count = inv.first(new ItemStack(Material.COBBLESTONE, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6丸石を持っていません"));
                 }
-            }else if(slot.getType() == Material.COAL){
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.COAL, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.COAL) {
+                if (inv.contains(new ItemStack(Material.COAL, 64))) {
+                    if (inv.firstEmpty() == -1){
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.COAL, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         inv.addItem(new ItemStack(Material.COAL_BLOCK, 7));
                         inv.addItem(new ItemStack(Material.COAL, 1));
                         count = inv.first(new ItemStack(Material.COAL, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6石炭を持っていません"));
                 }
-            }else if(slot.getType() == Material.REDSTONE) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.REDSTONE, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.REDSTONE) {
+                if (inv.contains(new ItemStack(Material.REDSTONE, 64))) {
+                    if (inv.firstEmpty() == -1){
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.REDSTONE, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         inv.addItem(new ItemStack(Material.REDSTONE_BLOCK, 7));
-                        inv.addItem(new ItemStack(Material.REDSTONE,1));
+                        inv.addItem(new ItemStack(Material.REDSTONE, 1));
                         count = inv.first(new ItemStack(Material.REDSTONE, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6赤石を持っていません"));
                 }
-            }else if(slot.getType() == Material.END_STONE) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.END_STONE, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.END_STONE) {
+                if (inv.contains(new ItemStack(Material.END_STONE, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.END_STONE, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukuend 1");
                         count = inv.first(new ItemStack(Material.END_STONE, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンドストーンを持っていません"));
                 }
-            }else if(slot.getType() == Material.NETHERRACK) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.NETHERRACK, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.NETHERRACK) {
+                if (inv.contains(new ItemStack(Material.NETHERRACK, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.NETHERRACK, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukunether 1");
                         count = inv.first(new ItemStack(Material.NETHERRACK, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ネザーラックを持っていません"));
                 }
-            }else if(slot.getType() == Material.WHEAT) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.WHEAT, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.WHEAT) {
+                if (inv.contains(new ItemStack(Material.WHEAT, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.WHEAT, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukuwheat 1");
                         count = inv.first(new ItemStack(Material.WHEAT, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6小麦を持っていません"));
                 }
-            }else if(slot.getType() == Material.WHEAT_SEEDS) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.WHEAT_SEEDS, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.WHEAT_SEEDS) {
+                if (inv.contains(new ItemStack(Material.WHEAT_SEEDS, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.WHEAT_SEEDS, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " komugi_ticket 1");
                         count = inv.first(new ItemStack(Material.WHEAT_SEEDS, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6小麦の種を持っていません"));
                 }
-            }else if(slot.getType() == Material.POTATO) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.POTATO, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.POTATO) {
+                if (inv.contains(new ItemStack(Material.POTATO, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.POTATO, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukupotato 1");
                         count = inv.first(new ItemStack(Material.POTATO, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ジャガイモを持っていません"));
                 }
-            }else if(slot.getType() == Material.CARROT) {
-                e.setCancelled(true);
-                Inventory inv= player.getInventory();
-                if(inv.contains(new ItemStack(Material.CARROT, 64))) {
-                    Location loc = player.getLocation();
+            } else if (slot.getType() == Material.CARROT) {
+                if (inv.contains(new ItemStack(Material.CARROT, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
                     int count = inv.first(new ItemStack(Material.CARROT, 64));
-                    while(count>-1){
+                    while (count > -1) {
                         inv.clear(count);
                         getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukucarrot 1");
                         count = inv.first(new ItemStack(Material.CARROT, 64));
                     }
 
-                }else {
-                    Location loc = player.getLocation();
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
                 }
-            }else if(slot.getType() == Material.BARRIER) {
-                e.setCancelled(true);
+            } else if (slot.getType() == Material.BARRIER) {
+                //  close inventory
                 player.closeInventory();
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6GUIを閉じます"));
-            }else{
-                e.setCancelled(true);
             }
+        }
     }
 }
-}
-
-
