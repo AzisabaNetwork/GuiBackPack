@@ -8,4 +8,6 @@ description: GuiBackpack
 commands:
   rgui:
     description: open gui command
-    usage:
+  permissions:
+    rgui.open.op:
+      default: op

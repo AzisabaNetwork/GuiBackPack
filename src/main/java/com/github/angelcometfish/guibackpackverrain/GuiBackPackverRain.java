@@ -24,10 +24,14 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player p = (Player) sender;
+        if (!sender.hasPermission("open.op")) {
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6権限が足りません。"));
+            return true;
+        }else{
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きます"));
         rgui(p);
         return false;
-    }
+    }}
 
 
     @Override
@@ -116,7 +120,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                         int count = inv.first(new ItemStack(Material.STONE, 64));
                         while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                            getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukustone 1");
                         count = inv.first(new ItemStack(Material.STONE, 64));
                     }
 
@@ -136,7 +140,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.COBBLESTONE, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " isi_ticket 1");
                         count = inv.first(new ItemStack(Material.COBBLESTONE, 64));
                     }
 
@@ -195,7 +199,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.END_STONE, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukuend 1");
                         count = inv.first(new ItemStack(Material.END_STONE, 64));
                     }
 
@@ -214,7 +218,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.NETHERRACK, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukunether 1");
                         count = inv.first(new ItemStack(Material.NETHERRACK, 64));
                     }
 
@@ -233,7 +237,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.WHEAT, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukuwheat 1");
                         count = inv.first(new ItemStack(Material.WHEAT, 64));
                     }
 
@@ -252,7 +256,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.WHEAT_SEEDS, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " komugi_ticket 1");
                         count = inv.first(new ItemStack(Material.WHEAT_SEEDS, 64));
                     }
 
@@ -271,7 +275,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.POTATO, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukupotato 1");
                         count = inv.first(new ItemStack(Material.POTATO, 64));
                     }
 
@@ -290,7 +294,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int count = inv.first(new ItemStack(Material.CARROT, 64));
                     while(count>-1){
                         inv.clear(count);
-                        inv.addItem(new ItemStack(Material.BARRIER, 1));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " assyukucarrot 1");
                         count = inv.first(new ItemStack(Material.CARROT, 64));
                     }
 
