@@ -306,16 +306,13 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                             continue;
                         }
 
-                        // エンパの個数を追加してあげる
                         enderPearlCount = enderPearlCount + item.getAmount(); // enderPearlCount += item.getAmount(); でも可
                     }
 
-                    // この時点で、 enderPearlCount は、enderinv内のエンパの個数になっているはず
 
-                    int addItemAmount = enderPearlCount / 32; // int ÷ int は小数点になったら切り捨てされるので問題なし。
+                    int addItemAmount = enderPearlCount / 32;
                     int amari = enderPearlCount % 32;
 
-                    // TODO 上の個数を使って続きの処理
                     if (addItemAmount != 0) {
                         player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
