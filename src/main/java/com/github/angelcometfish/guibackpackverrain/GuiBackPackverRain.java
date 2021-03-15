@@ -23,15 +23,11 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player p = (Player) sender;
-        if (!sender.hasPermission("open.op")) {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6権限が足りません。"));
-            return true;
-        } else {
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きます"));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きました"));
             rgui(p);
             return false;
         }
-    }
+
 
 
     @Override
@@ -50,7 +46,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
 
     public void rgui(Player p) {
-        Inventory inv = Bukkit.createInventory(null, 18, "§2CraftGui");
+        Inventory inv = Bukkit.createInventory(null, 27, "§2CraftGui");
         ItemStack stone = new ItemStack(STONE);
         ItemStack cobblestone = new ItemStack(Material.COBBLESTONE);
         ItemStack coal = new ItemStack(Material.COAL);
@@ -61,10 +57,12 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemStack list1 = new ItemStack(Material.PAPER);
         ItemStack list2 = new ItemStack(Material.PAPER);
+        ItemStack list3 = new ItemStack(Material.PAPER);
         ItemStack wheat = new ItemStack(Material.WHEAT);
         ItemStack seed = new ItemStack(Material.WHEAT_SEEDS);
         ItemStack carrot = new ItemStack(Material.CARROT);
         ItemStack potato = new ItemStack(Material.POTATO);
+        ItemStack peal = new ItemStack(Material.ENDER_PEARL);
 
         ItemMeta list1meta1 = close.getItemMeta();
         assert list1meta1 != null;
@@ -74,6 +72,10 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemMeta listmeta2 = close.getItemMeta();
         listmeta2.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l農業"));
         list2.setItemMeta(listmeta2);
+
+        ItemMeta listmeta3 = close.getItemMeta();
+        listmeta3.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l素材"));
+        list3.setItemMeta(listmeta3);
 
         ItemMeta nonemeta = close.getItemMeta();
         nonemeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7空欄"));
@@ -99,7 +101,9 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         inv.setItem(11, seed);
         inv.setItem(12, carrot);
         inv.setItem(13, potato);
-        inv.setItem(17, close);
+        inv.setItem(18,list3);
+        inv.setItem(19,peal);
+        inv.setItem(26, close);
 
         p.openInventory(inv);
     }
@@ -150,7 +154,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                 }
             } else if (slot.getType() == Material.COAL) {
                 if (inv.contains(new ItemStack(Material.COAL, 64))) {
-                    if (inv.firstEmpty() == -1){
+                    if (inv.firstEmpty() == -1) {
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
                         player.closeInventory();
                         return;
@@ -171,7 +175,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                 }
             } else if (slot.getType() == Material.REDSTONE) {
                 if (inv.contains(new ItemStack(Material.REDSTONE, 64))) {
-                    if (inv.firstEmpty() == -1){
+                    if (inv.firstEmpty() == -1) {
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
                         player.closeInventory();
                         return;
@@ -284,7 +288,51 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                 //  close inventory
                 player.closeInventory();
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6GUIを閉じます"));
+            } else if (slot.getType() == Material.ENDER_PEARL) {
+                if (inv.contains(new ItemStack(Material.ENDER_PEARL, 16))) {
+                    Inventory enderinv = Bukkit.createInventory(null, 54, "§2enderinvmk1");
+                    int count = inv.first(new ItemStack(Material.ENDER_PEARL, 16));
+                    while (count > -1) {
+                        inv.clear(count);
+                        enderinv.addItem(new ItemStack(Material.ENDER_PEARL, 16));
+                        count = inv.first(new ItemStack(Material.ENDER_PEARL, 16));
+                    }
+
+                    int enderPearlCount = 0;
+                    for (int i = 0, size = enderinv.getSize(); i < size; ++i) {
+                        ItemStack item = enderinv.getItem(i);
+                        // アイテムが無いか、エンダーパールではない場合 continue
+                        if (item == null || item.getType() != Material.ENDER_PEARL) {
+                            continue;
+                        }
+
+                        // エンパの個数を追加してあげる
+                        enderPearlCount = enderPearlCount + item.getAmount(); // enderPearlCount += item.getAmount(); でも可
+                    }
+
+                    // この時点で、 enderPearlCount は、enderinv内のエンパの個数になっているはず
+
+                    int addItemAmount = enderPearlCount / 32; // int ÷ int は小数点になったら切り捨てされるので問題なし。
+                    int amari = enderPearlCount % 32;
+
+                    // TODO 上の個数を使って続きの処理
+                    if (addItemAmount != 0) {
+                        player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " pearl1 " + addItemAmount);
+                    } else {
+                        player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンダーパールが足りません"));
+                    }
+                    inv.addItem(new ItemStack(Material.ENDER_PEARL, amari));
+
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンパを持っていません"));
+                }
             }
+
         }
     }
 }
