@@ -301,7 +301,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     int enderPearlCount = 0;
                     for (int i = 0, size = enderinv.getSize(); i < size; ++i) {
                         ItemStack item = enderinv.getItem(i);
-                        // アイテムが無いか、エンダーパールではない場合 continue
+                        // アイテムが無いか、エンダーパールではない場合continue
                         if (item == null || item.getType() != Material.ENDER_PEARL) {
                             continue;
                         }
