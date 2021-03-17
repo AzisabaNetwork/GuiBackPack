@@ -63,6 +63,10 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemStack carrot = new ItemStack(Material.CARROT);
         ItemStack potato = new ItemStack(Material.POTATO);
         ItemStack peal = new ItemStack(Material.ENDER_PEARL);
+        ItemStack zombief = new ItemStack(Material.ROTTEN_FLESH);
+        ItemStack born = new ItemStack(Material.BONE);
+        ItemStack gunpowder = new ItemStack(Material.GUNPOWDER);
+        ItemStack spiderito = new ItemStack(Material.STRING);
 
         ItemMeta list1meta1 = close.getItemMeta();
         assert list1meta1 != null;
@@ -102,7 +106,11 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         inv.setItem(12, carrot);
         inv.setItem(13, potato);
         inv.setItem(18,list3);
-        inv.setItem(19,peal);
+        inv.setItem(19, peal);
+        inv.setItem(20, zombief);
+        inv.setItem(21, born);
+        inv.setItem(22, gunpowder);
+        inv.setItem(23, spiderito);
         inv.setItem(26, close);
 
         p.openInventory(inv);
@@ -323,7 +331,67 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     }
                     inv.addItem(new ItemStack(Material.ENDER_PEARL, amari));
 
+                }
+            }else if (slot.getType() == Material.ROTTEN_FLESH) {
+                if (inv.contains(new ItemStack(Material.ROTTEN_FLESH, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.ROTTEN_FLESH, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " rotten_flesh 1");
+                        count = inv.first(new ItemStack(Material.ROTTEN_FLESH, 64));
+                    }
 
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                }
+            }else if (slot.getType() == Material.GUNPOWDER) {
+                if (inv.contains(new ItemStack(Material.GUNPOWDER, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.GUNPOWDER, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " gunpowder 1");
+                        count = inv.first(new ItemStack(Material.GUNPOWDER, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                }
+            }else if (slot.getType() == Material.STRING) {
+                if (inv.contains(new ItemStack(Material.STRING, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.STRING, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " cobweb_dust 1");
+                        count = inv.first(new ItemStack(Material.STRING, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                }
+            }else if (slot.getType() == Material.BONE) {
+                    if (inv.contains(new ItemStack(Material.BONE, 64))) {
+                        player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                        int count = inv.first(new ItemStack(Material.BONE, 64));
+                        while (count > -1) {
+                            inv.clear(count);
+                            getServer().dispatchCommand(getServer().getConsoleSender(), "mm i give " + player.getName() + " bone_break 1");
+                            count = inv.first(new ItemStack(Material.BONE, 64));
+                        }
+
+                    } else {
+                        player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                    }
                 } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンパを持っていません"));
@@ -332,4 +400,4 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
         }
     }
-}
+
