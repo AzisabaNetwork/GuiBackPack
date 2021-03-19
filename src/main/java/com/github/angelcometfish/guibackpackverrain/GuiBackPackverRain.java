@@ -331,6 +331,9 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     }
                     inv.addItem(new ItemStack(Material.ENDER_PEARL, amari));
 
+                }else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンパを持っていません"));
                 }
             }else if (slot.getType() == Material.ROTTEN_FLESH) {
                 if (inv.contains(new ItemStack(Material.ROTTEN_FLESH, 64))) {
@@ -345,7 +348,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
                 } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ゾンビ肉を持っていません"));
                 }
             }else if (slot.getType() == Material.GUNPOWDER) {
                 if (inv.contains(new ItemStack(Material.GUNPOWDER, 64))) {
@@ -360,7 +363,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
                 } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6火薬を持っていません"));
                 }
             }else if (slot.getType() == Material.STRING) {
                 if (inv.contains(new ItemStack(Material.STRING, 64))) {
@@ -375,7 +378,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
                 } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6蜘蛛の糸を持っていません"));
                 }
             }else if (slot.getType() == Material.BONE) {
                     if (inv.contains(new ItemStack(Material.BONE, 64))) {
@@ -390,11 +393,8 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
                     } else {
                         player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6人参を持っていません"));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6骨を持っていません"));
                     }
-                } else {
-                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンパを持っていません"));
                 }
             }
 
