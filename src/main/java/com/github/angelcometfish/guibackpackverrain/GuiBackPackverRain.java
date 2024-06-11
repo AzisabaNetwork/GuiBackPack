@@ -23,11 +23,10 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player p = (Player) sender;
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きました"));
-            rgui(p);
-            return false;
-        }
-
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2CraftGuiを開きました"));
+        rgui(p);
+        return false;
+    }
 
 
     @Override
@@ -46,7 +45,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
 
 
     public void rgui(Player p) {
-        Inventory inv = Bukkit.createInventory(null, 27, "§2CraftGui");
+        Inventory inv = Bukkit.createInventory(null, 54, "§2CraftGui");
         ItemStack stone = new ItemStack(STONE);
         ItemStack cobblestone = new ItemStack(Material.COBBLESTONE);
         ItemStack coal = new ItemStack(Material.COAL);
@@ -58,6 +57,9 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemStack list1 = new ItemStack(Material.PAPER);
         ItemStack list2 = new ItemStack(Material.PAPER);
         ItemStack list3 = new ItemStack(Material.PAPER);
+        ItemStack list4 = new ItemStack(Material.PAPER);
+        ItemStack list5 = new ItemStack(Material.PAPER);
+        ItemStack list6 = new ItemStack(Material.PAPER);
         ItemStack wheat = new ItemStack(Material.WHEAT);
         ItemStack seed = new ItemStack(Material.WHEAT_SEEDS);
         ItemStack carrot = new ItemStack(Material.CARROT);
@@ -67,6 +69,24 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemStack born = new ItemStack(Material.BONE);
         ItemStack gunpowder = new ItemStack(Material.GUNPOWDER);
         ItemStack spiderito = new ItemStack(Material.STRING);
+        ItemStack oak = new ItemStack(Material.OAK_LOG);
+        ItemStack spruce = new ItemStack(Material.SPRUCE_LOG);
+        ItemStack birch = new ItemStack(Material.BIRCH_LOG);
+        ItemStack jungle = new ItemStack(Material.JUNGLE_LOG);
+        ItemStack acacia = new ItemStack(Material.ACACIA_LOG);
+        ItemStack dark = new ItemStack(Material.DARK_OAK_LOG);
+        ItemStack lapis = new ItemStack(Material.LAPIS_LAZULI);
+        ItemStack iron = new ItemStack(Material.IRON_INGOT);
+        ItemStack gold = new ItemStack(Material.GOLD_INGOT);
+        ItemStack diamond = new ItemStack(Material.DIAMOND);
+        ItemStack emerald = new ItemStack(Material.EMERALD);
+        ItemStack coalB = new ItemStack(Material.COAL_BLOCK);
+        ItemStack redstoneB = new ItemStack(Material.REDSTONE_BLOCK);
+        ItemStack lapisB = new ItemStack(Material.LAPIS_BLOCK);
+        ItemStack ironB = new ItemStack(Material.IRON_BLOCK);
+        ItemStack goldB = new ItemStack(Material.GOLD_BLOCK);
+        ItemStack diamondB = new ItemStack(Material.DIAMOND_BLOCK);
+
 
         ItemMeta list1meta1 = close.getItemMeta();
         assert list1meta1 != null;
@@ -80,6 +100,18 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         ItemMeta listmeta3 = close.getItemMeta();
         listmeta3.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l素材"));
         list3.setItemMeta(listmeta3);
+
+        ItemMeta listmeta4 = close.getItemMeta();
+        listmeta4.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l原木"));
+        list4.setItemMeta(listmeta4);
+
+        ItemMeta listmeta5 = close.getItemMeta();
+        listmeta5.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l鉱石、インゴット"));
+        list5.setItemMeta(listmeta5);
+
+        ItemMeta listmeta6 = close.getItemMeta();
+        listmeta6.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&e&l鉱石ブロック"));
+        list6.setItemMeta(listmeta6);
 
         ItemMeta nonemeta = close.getItemMeta();
         nonemeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&7空欄"));
@@ -96,8 +128,6 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         inv.setItem(0, list1);
         inv.setItem(1, stone);
         inv.setItem(2, cobblestone);
-        inv.setItem(3, coal);
-        inv.setItem(4, redstone);
         inv.setItem(5, endstone);
         inv.setItem(6, nether);
         inv.setItem(9, list2);
@@ -105,13 +135,35 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
         inv.setItem(11, seed);
         inv.setItem(12, carrot);
         inv.setItem(13, potato);
-        inv.setItem(18,list3);
+        inv.setItem(18, list3);
         inv.setItem(19, peal);
         inv.setItem(20, zombief);
         inv.setItem(21, born);
         inv.setItem(22, gunpowder);
         inv.setItem(23, spiderito);
-        inv.setItem(26, close);
+        inv.setItem(27, list4);
+        inv.setItem(28, oak);
+        inv.setItem(29, spruce);
+        inv.setItem(30, birch);
+        inv.setItem(31, jungle);
+        inv.setItem(32, acacia);
+        inv.setItem(33, dark);
+        inv.setItem(36, list5);
+        inv.setItem(37, coal);
+        inv.setItem(38, redstone);
+        inv.setItem(39, lapis);
+        inv.setItem(40, iron);
+        inv.setItem(41, gold);
+        inv.setItem(42, diamond);
+        inv.setItem(43, emerald);
+        inv.setItem(45, list6);
+        inv.setItem(46, coalB);
+        inv.setItem(47, redstoneB);
+        inv.setItem(48, lapisB);
+        inv.setItem(49, ironB);
+        inv.setItem(50, goldB);
+        inv.setItem(51, diamondB);
+        inv.setItem(53, close);
 
         p.openInventory(inv);
     }
@@ -331,11 +383,11 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     }
                     inv.addItem(new ItemStack(Material.ENDER_PEARL, amari));
 
-                }else {
+                } else {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エンパを持っていません"));
                 }
-            }else if (slot.getType() == Material.ROTTEN_FLESH) {
+            } else if (slot.getType() == Material.ROTTEN_FLESH) {
                 if (inv.contains(new ItemStack(Material.ROTTEN_FLESH, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
@@ -350,7 +402,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ゾンビ肉を持っていません"));
                 }
-            }else if (slot.getType() == Material.GUNPOWDER) {
+            } else if (slot.getType() == Material.GUNPOWDER) {
                 if (inv.contains(new ItemStack(Material.GUNPOWDER, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
@@ -365,7 +417,7 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6火薬を持っていません"));
                 }
-            }else if (slot.getType() == Material.STRING) {
+            } else if (slot.getType() == Material.STRING) {
                 if (inv.contains(new ItemStack(Material.STRING, 64))) {
                     player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
@@ -380,24 +432,338 @@ public final class GuiBackPackverRain extends JavaPlugin implements Listener {
                     player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6蜘蛛の糸を持っていません"));
                 }
-            }else if (slot.getType() == Material.BONE) {
-                    if (inv.contains(new ItemStack(Material.BONE, 64))) {
-                        player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
-                        int count = inv.first(new ItemStack(Material.BONE, 64));
-                        while (count > -1) {
-                            inv.clear(count);
-                            getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " bone_break 1 1");
-                            count = inv.first(new ItemStack(Material.BONE, 64));
-                        }
-
-                    } else {
-                        player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6骨を持っていません"));
+            } else if (slot.getType() == Material.BONE) {
+                if (inv.contains(new ItemStack(Material.BONE, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.BONE, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " bone_break 1 1");
+                        count = inv.first(new ItemStack(Material.BONE, 64));
                     }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6骨を持っていません"));
+                }
+            } else if (slot.getType() == Material.OAK_LOG) {
+                if (inv.contains(new ItemStack(Material.OAK_LOG, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.OAK_LOG, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_oak 1 1");
+                        count = inv.first(new ItemStack(Material.OAK_LOG, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6オークの原木を持っていません"));
+                }
+            } else if (slot.getType() == Material.SPRUCE_LOG) {
+                if (inv.contains(new ItemStack(Material.SPRUCE_LOG, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.SPRUCE_LOG, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " assyukuspruce 1 1");
+                        count = inv.first(new ItemStack(Material.SPRUCE_LOG, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6マツの原木を持っていません"));
+                }
+            } else if (slot.getType() == Material.BIRCH_LOG) {
+                if (inv.contains(new ItemStack(Material.BIRCH_LOG, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.BIRCH_LOG, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_birch 1 1");
+                        count = inv.first(new ItemStack(Material.BIRCH_LOG, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6白樺の原木を持っていません"));
+                }
+            } else if (slot.getType() == Material.JUNGLE_LOG) {
+                if (inv.contains(new ItemStack(Material.JUNGLE_LOG, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.JUNGLE_LOG, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_jungl 1 1");
+                        count = inv.first(new ItemStack(Material.JUNGLE_LOG, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ジャングルの原木を持っていません"));
+                }
+            } else if (slot.getType() == Material.ACACIA_LOG) {
+                if (inv.contains(new ItemStack(Material.ACACIA_LOG, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.ACACIA_LOG, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_acacia 1 1");
+                        count = inv.first(new ItemStack(Material.ACACIA_LOG, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6アカシアの原木を持っていません"));
+                }
+            } else if (slot.getType() == Material.DARK_OAK_LOG) {
+                if (inv.contains(new ItemStack(Material.DARK_OAK_LOG, 64))) {
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.DARK_OAK_LOG, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_dark 1 1");
+                        count = inv.first(new ItemStack(Material.DARK_OAK_LOG, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ダークオークの原木を持っていません"));
+                }
+            } else if (slot.getType() == Material.LAPIS_LAZULI) {
+                if (inv.contains(new ItemStack(Material.LAPIS_LAZULI, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.LAPIS_LAZULI, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        inv.addItem(new ItemStack(Material.LAPIS_BLOCK, 7));
+                        inv.addItem(new ItemStack(Material.LAPIS_LAZULI, 1));
+                        count = inv.first(new ItemStack(Material.LAPIS_LAZULI, 64));
+                    }
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ラピスラズリを持っていません"));
+                }
+            } else if (slot.getType() == Material.IRON_INGOT) {
+                if (inv.contains(new ItemStack(Material.IRON_INGOT, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.IRON_INGOT, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        inv.addItem(new ItemStack(Material.IRON_BLOCK, 7));
+                        inv.addItem(new ItemStack(Material.IRON_INGOT, 1));
+                        count = inv.first(new ItemStack(Material.IRON_INGOT, 64));
+                    }
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6鉄インゴットを持っていません"));
+                }
+            } else if (slot.getType() == Material.GOLD_INGOT) {
+                if (inv.contains(new ItemStack(Material.GOLD_INGOT, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.GOLD_INGOT, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        inv.addItem(new ItemStack(Material.GOLD_BLOCK, 7));
+                        inv.addItem(new ItemStack(Material.GOLD_INGOT, 1));
+                        count = inv.first(new ItemStack(Material.GOLD_INGOT, 64));
+                    }
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6金インゴットを持っていません"));
+                }
+            } else if (slot.getType() == Material.DIAMOND) {
+                if (inv.contains(new ItemStack(Material.DIAMOND, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.DIAMOND, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        inv.addItem(new ItemStack(Material.DIAMOND_BLOCK, 7));
+                        inv.addItem(new ItemStack(Material.DIAMOND, 1));
+                        count = inv.first(new ItemStack(Material.DIAMOND, 64));
+                    }
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ダイヤモンドを持っていません"));
+                }
+            } else if (slot.getType() == Material.EMERALD) {
+                if (inv.contains(new ItemStack(Material.EMERALD, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.EMERALD, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        inv.addItem(new ItemStack(Material.EMERALD_BLOCK, 7));
+                        inv.addItem(new ItemStack(Material.EMERALD, 1));
+                        count = inv.first(new ItemStack(Material.EMERALD, 64));
+                    }
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6エメラルドを持っていません"));
+                }
+            } else if (slot.getType() == Material.COAL_BLOCK) {
+                if (inv.contains(new ItemStack(Material.COAL_BLOCK, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.COAL_BLOCK, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " Compressed_coal_block 7 1");
+                        inv.addItem(new ItemStack(Material.COAL_BLOCK, 1));
+                        count = inv.first(new ItemStack(Material.COAL_BLOCK, 64));
+                    }
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6石炭ブロックを持っていません"));
+                }
+            } else if (slot.getType() == Material.REDSTONE_BLOCK) {
+                if (inv.contains(new ItemStack(Material.REDSTONE_BLOCK, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.REDSTONE_BLOCK, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " Compressed_redstone_block 7 1");
+                        inv.addItem(new ItemStack(Material.REDSTONE_BLOCK, 1));
+                        count = inv.first(new ItemStack(Material.REDSTONE_BLOCK, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6赤石ブロックを持っていません"));
+                }
+            } else if (slot.getType() == Material.LAPIS_BLOCK) {
+                if (inv.contains(new ItemStack(Material.LAPIS_BLOCK, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.LAPIS_BLOCK, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_lapis_block 7 1");
+                        inv.addItem(new ItemStack(Material.LAPIS_BLOCK, 1));
+                        count = inv.first(new ItemStack(Material.LAPIS_BLOCK, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ラピスラズリブロックを持っていません"));
+                }
+            } else if (slot.getType() == Material.IRON_BLOCK) {
+                if (inv.contains(new ItemStack(Material.IRON_BLOCK, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.IRON_BLOCK, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " Compressed_iron_block 7 1");
+                        inv.addItem(new ItemStack(Material.IRON_BLOCK, 1));
+                        count = inv.first(new ItemStack(Material.IRON_BLOCK, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6鉄ブロックを持っていません"));
+                }
+            } else if (slot.getType() == Material.GOLD_BLOCK) {
+                if (inv.contains(new ItemStack(Material.GOLD_BLOCK, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.GOLD_BLOCK, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " Compressed_gold_block 7 1");
+                        inv.addItem(new ItemStack(Material.GOLD_BLOCK, 1));
+                        count = inv.first(new ItemStack(Material.GOLD_BLOCK, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6金ブロックを持っていません"));
+                }
+            } else if (slot.getType() == Material.DIAMOND_BLOCK) {
+                if (inv.contains(new ItemStack(Material.DIAMOND_BLOCK, 64))) {
+                    if (inv.firstEmpty() == -1) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6空きがないので変換できません"));
+                        player.closeInventory();
+                        return;
+                    }
+                    player.playSound(loc, Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6変換しました"));
+                    int count = inv.first(new ItemStack(Material.DIAMOND_BLOCK, 64));
+                    while (count > -1) {
+                        inv.clear(count);
+                        getServer().dispatchCommand(getServer().getConsoleSender(), "mlg " + player.getName() + " compressed_diamond_block 7 1");
+                        inv.addItem(new ItemStack(Material.DIAMOND_BLOCK, 1));
+                        count = inv.first(new ItemStack(Material.DIAMOND_BLOCK, 64));
+                    }
+
+                } else {
+                    player.playSound(loc, Sound.ENTITY_VILLAGER_NO, 2, 1);
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6ダイヤモンドブロックを持っていません"));
                 }
             }
-
         }
     }
+}
 
